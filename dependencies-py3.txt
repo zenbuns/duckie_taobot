@@ -1,1 +1,9 @@
 # LIST YOUR PYTHON3 PACKAGES HERE
+smbus2
+simple-pid
+filterpy
+pykalman
+pathos
+multiprocess
+pid
+
