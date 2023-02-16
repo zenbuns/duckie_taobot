@@ -65,30 +65,26 @@ class MyPublisherNode(DTROS):
         self.theta_curr = 0         # Current orientation of the robot
         self.n_tot = 135            # Total number of ticks for one full rotation of a wheel
         self.baseline_wheel2wheel = 0.095  # Distance between the centers of the two wheels in meters
-     
 
-
-    def rightwheel(self, data):
+    def right_wheel_callback(self, data):
         self.r_tick = data.data
         rospy.loginfo("Parem ratas: %s", data.data)
-    
-    def leftwheel(self, data):
+
+    def left_wheel_callback(self, data):
         self.l_tick = data.data
         rospy.loginfo("Vasak ratas: %s", data.data)
-    
-    def time_leftwheel(self, data):
+
+    def time_left_wheel_callback(self, data):
         self.timeL = data.header.seq
 
-    def time_rightwheel(self, data):
+    def time_right_wheel_callback(self, data):
         self.timeR = data.header.seq
-
-    
 
     def on_shutdown(self):
         speed = WheelsCmdStamped()
         speed.vel_left = 0
         speed.vel_right = 0
-        self.pub.publish(speed)
+        self.wheels_publisher.publish(speed)
         rospy.on_shutdown(self.stop_robot)
 
     def tof_callback(self, data):
@@ -207,7 +203,7 @@ class MyPublisherNode(DTROS):
             speed.vel_right = max(0.01, min(speed.vel_right, 0.9))
 
             # publish the speed values
-            self.pub.publish(speed)
+            self.wheels_publisher.publish(speed)
 
             # update the previous error value and time value for the next iteration
             self.last_error = error
