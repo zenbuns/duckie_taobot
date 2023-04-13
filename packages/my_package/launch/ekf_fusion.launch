@@ -1,0 +1,38 @@
+<launch>
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+
+    <param name="frequency" value="30"/>
+    <param name="sensor_timeout" value="0.1"/>
+    <param name="two_d_mode" value="true"/>
+    <param name="transform_time_offset" value="0.0"/>
+    <param name="odom_frame" value="odom"/>
+    <param name="base_link_frame" value="base_link"/>
+    <param name="world_frame" value="odom"/>
+
+    <param name="odom0" value="nav_msgs/Odometry"/>
+    <param name="imu0" value="imu_node/imu_data"/>
+
+    <rosparam param="odom0_config">[true, true, false,
+                                     false, false, false,
+                                     true, true, true,
+                                     false, false, false,
+                                     false, false, false]</rosparam>
+    <rosparam param="imu0_config"> [false, false, false,
+                                     true, true, true,
+                                     false, false, false,
+                                     true, true, true,
+                                     true, true, true]</rosparam>
+
+    <param name="odom0_differential" value="false"/>
+    <param name="imu0_differential" value="false"/>
+    <param name="odom0_relative" value="false"/>
+    <param name="imu0_relative" value="false"/>
+
+  </node>
+  <node pkg="my_package" type="my_publisher_node.py" name="my_publisher_node" output="screen"/>
+  <node pkg="my_package" type="my_subscriber_node.py" name="my_subscriber_node" output="screen"/>
+  <node pkg="my_package" type="imu_node.py" name="imu_node" output="screen"/>
+  <node pkg="my_package" type="line_node.py" name="line_node" output="screen"/>
+  <node pkg="my_package" type="tof_node.py" name="tof_node" output="screen"/>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 1 map odom"/>
+</launch>

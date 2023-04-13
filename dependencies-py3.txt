@@ -1,1 +1,13 @@
 # LIST YOUR PYTHON3 PACKAGES HERE
+smbus2
+simple-pid
+filterpy
+pid
+smbus
+adafruit-circuitpython-mpu6050
+Jetson.GPIO<=2.0.20
+
+
+RPi.GPIO
+mpu6050-raspberrypi
+
